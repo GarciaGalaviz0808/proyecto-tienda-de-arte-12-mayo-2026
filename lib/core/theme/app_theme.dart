@@ -16,11 +16,9 @@ class AppTheme {
         onSecondary: AppColors.textPrimary,
         error: AppColors.error,
         onError: AppColors.surface,
-        background: AppColors.backgroundPrimary,
-        onBackground: AppColors.textPrimary,
         surface: AppColors.surface,
         onSurface: AppColors.textPrimary,
-        surfaceVariant: AppColors.backgroundSecondary,
+        surfaceContainerHighest: AppColors.backgroundSecondary,
         onSurfaceVariant: AppColors.textSecondary,
         outline: AppColors.borderSubtle,
       ),
@@ -118,7 +116,8 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
           borderSide: const BorderSide(color: AppColors.borderSubtle),
@@ -129,7 +128,8 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusInput),
-          borderSide: const BorderSide(color: AppColors.primaryAccent, width: 1.5),
+          borderSide:
+              const BorderSide(color: AppColors.primaryAccent, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusInput),

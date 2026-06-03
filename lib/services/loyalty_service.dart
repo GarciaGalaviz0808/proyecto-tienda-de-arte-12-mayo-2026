@@ -9,19 +9,26 @@ class LoyaltyService {
     final doc = await _db.collection('loyalty_rules').doc('global').get();
     if (!doc.exists) {
       final defaultRules = LoyaltyRulesModel.defaultRules();
-      await _db.collection('loyalty_rules').doc('global').set(defaultRules.toFirestore());
+      await _db
+          .collection('loyalty_rules')
+          .doc('global')
+          .set(defaultRules.toFirestore());
       return defaultRules;
     }
     return LoyaltyRulesModel.fromFirestore(doc);
   }
 
-  Future<List<LoyaltyTransactionModel>> getUserTransactions(String userId) async {
-    final snapshot = await _db.collection('users')
+  Future<List<LoyaltyTransactionModel>> getUserTransactions(
+      String userId) async {
+    final snapshot = await _db
+        .collection('users')
         .doc(userId)
         .collection('loyalty_transactions')
         .orderBy('createdAt', descending: true)
         .get();
-    return snapshot.docs.map((doc) => LoyaltyTransactionModel.fromFirestore(doc)).toList();
+    return snapshot.docs
+        .map((doc) => LoyaltyTransactionModel.fromFirestore(doc))
+        .toList();
   }
 
   Future<void> redeemReward({
@@ -39,7 +46,8 @@ class LoyaltyService {
 
       // Verify points
       if (user.loyaltyPoints < reward.pointsCost) {
-        throw Exception('Puntos de fidelidad insuficientes para canjear "${reward.name}".');
+        throw Exception(
+            'Puntos de fidelidad insuficientes para canjear "${reward.name}".');
       }
 
       // 2. Read loyalty rules for levels/thresholds
@@ -55,7 +63,8 @@ class LoyaltyService {
       String newLevel = 'Bronce';
       int highestThreshold = -1;
       for (var threshold in loyaltyRules.levelThresholds) {
-        if (newPoints >= threshold.minPoints && threshold.minPoints > highestThreshold) {
+        if (newPoints >= threshold.minPoints &&
+            threshold.minPoints > highestThreshold) {
           highestThreshold = threshold.minPoints;
           newLevel = threshold.level;
         }
@@ -79,8 +88,10 @@ class LoyaltyService {
       });
 
       // 6. Apply reward benefits (create a coupon code in coupons collection for client to use)
-      final couponRef = _db.collection('coupons').doc(reward.rewardId + "_" + userId.substring(0, 5));
-      
+      final couponRef = _db
+          .collection('coupons')
+          .doc("${reward.rewardId}_${userId.substring(0, 5)}");
+
       // Determine coupon settings
       double couponVal = 0.0;
       String couponType = 'fixed';
@@ -98,7 +109,8 @@ class LoyaltyService {
         'minPurchase': 0.0,
         'maxUses': 1,
         'usedCount': 0,
-        'expiresAt': Timestamp.fromDate(DateTime.now().add(const Duration(days: 30))),
+        'expiresAt':
+            Timestamp.fromDate(DateTime.now().add(const Duration(days: 30))),
         'applicableCategories': null,
         'applicableBrands': null,
         'isActive': true,

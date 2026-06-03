@@ -52,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined, color: AppColors.textPrimary),
+            icon: const Icon(Icons.shopping_cart_outlined,
+                color: AppColors.textPrimary),
             onPressed: () {
               Navigator.push(
                 context,
@@ -65,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Consumer<ProductProvider>(
         builder: (context, productProvider, child) {
           if (productProvider.isLoading && productProvider.products.isEmpty) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return const Center(
+                child: CircularProgressIndicator(color: AppColors.primary));
           }
 
           if (productProvider.error != null) {
@@ -73,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, size: 48, color: AppColors.error),
+                  const Icon(Icons.error_outline,
+                      size: 48, color: AppColors.error),
                   const SizedBox(height: 16),
                   Text(
                     'Error al cargar los productos',
@@ -107,9 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           final banner = productProvider.banners[index];
                           return Container(
-                            margin: const EdgeInsets.all(AppDimensions.paddingM),
+                            margin:
+                                const EdgeInsets.all(AppDimensions.paddingM),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+                              borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusCard),
                               color: AppColors.backgroundSecondary,
                               image: DecorationImage(
                                 image: NetworkImage(banner.imageUrl),
@@ -118,21 +123,24 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+                                borderRadius: BorderRadius.circular(
+                                    AppDimensions.radiusCard),
                                 gradient: LinearGradient(
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
                                   colors: [
-                                    Colors.black.withOpacity(0.6),
+                                    Colors.black.withValues(alpha: 0.6),
                                     Colors.transparent,
                                   ],
                                 ),
                               ),
-                              padding: const EdgeInsets.all(AppDimensions.paddingM),
+                              padding:
+                                  const EdgeInsets.all(AppDimensions.paddingM),
                               alignment: Alignment.bottomLeft,
                               child: Text(
                                 banner.title,
-                                style: AppTypography.titleLarge.copyWith(color: AppColors.surface),
+                                style: AppTypography.titleLarge
+                                    .copyWith(color: AppColors.surface),
                               ),
                             ),
                           );
@@ -148,19 +156,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingM, vertical: AppDimensions.paddingS),
-                          child: Text('Categorías', style: AppTypography.titleLarge),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppDimensions.paddingM,
+                              vertical: AppDimensions.paddingS),
+                          child: Text('Categorías',
+                              style: AppTypography.titleLarge),
                         ),
                         SizedBox(
                           height: 100,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: AppDimensions.paddingS),
                             itemCount: productProvider.categories.length,
                             itemBuilder: (context, index) {
-                              final category = productProvider.categories[index];
+                              final category =
+                                  productProvider.categories[index];
                               return Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: AppDimensions.paddingS),
                                 child: Column(
                                   children: [
                                     Container(
@@ -169,16 +183,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: AppColors.surface,
-                                        border: Border.all(color: AppColors.borderSubtle),
+                                        border: Border.all(
+                                            color: AppColors.borderSubtle),
                                         image: category.imageUrl != null
                                             ? DecorationImage(
-                                                image: NetworkImage(category.imageUrl!),
+                                                image: NetworkImage(
+                                                    category.imageUrl!),
                                                 fit: BoxFit.cover,
                                               )
                                             : null,
                                       ),
                                       child: category.imageUrl == null
-                                          ? const Icon(Icons.category, color: AppColors.primary)
+                                          ? const Icon(Icons.category,
+                                              color: AppColors.primary)
                                           : null,
                                     ),
                                     const SizedBox(height: 8),
@@ -206,26 +223,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 // Staggered Products Grid
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppDimensions.paddingM),
                   sliver: SliverMasonryGrid.count(
                     crossAxisCount: 2,
                     mainAxisSpacing: AppDimensions.paddingM,
                     crossAxisSpacing: AppDimensions.paddingM,
-                    childCount: productProvider.isLoading 
-                        ? 6 
+                    childCount: productProvider.isLoading
+                        ? 6
                         : productProvider.products.length,
                     itemBuilder: (context, index) {
                       if (productProvider.isLoading) {
                         return const ShimmerProductCard();
                       }
-                      
+
                       final product = productProvider.products[index];
                       return ProductCardArt(
                         product: product,
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProductDetailScreen(product: product)),
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailScreen(product: product)),
                           );
                         },
                         onFavoriteTap: () {
@@ -235,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-                
+
                 const SliverToBoxAdapter(
                   child: SizedBox(height: AppDimensions.paddingL),
                 ),

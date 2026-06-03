@@ -69,16 +69,18 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
                   padding: const EdgeInsets.all(AppDimensions.paddingXL),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [levelColor.withOpacity(0.8), levelColor],
+                      colors: [levelColor.withValues(alpha: 0.8), levelColor],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+                    borderRadius:
+                        BorderRadius.circular(AppDimensions.radiusCard),
                     boxShadow: AppDimensions.shadowStandard,
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.star, size: 64, color: AppColors.surface),
+                      const Icon(Icons.star,
+                          size: 64, color: AppColors.surface),
                       const SizedBox(height: 16),
                       Text(
                         'Nivel ${user.loyaltyLevel.toUpperCase()}',
@@ -91,7 +93,8 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
                       const SizedBox(height: 8),
                       Text(
                         '${user.loyaltyPoints} puntos disponibles',
-                        style: AppTypography.titleMedium.copyWith(color: AppColors.surface),
+                        style: AppTypography.titleMedium
+                            .copyWith(color: AppColors.surface),
                       ),
                     ],
                   ),
@@ -102,7 +105,9 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(AppDimensions.paddingM),
-                  child: Text('Canjear Recompensas', style: AppTypography.titleLarge.copyWith(fontWeight: FontWeight.bold)),
+                  child: Text('Canjear Recompensas',
+                      style: AppTypography.titleLarge
+                          .copyWith(fontWeight: FontWeight.bold)),
                 ),
               ),
               SliverToBoxAdapter(
@@ -110,7 +115,8 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
                   height: 150,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingM),
                     children: [
                       _buildRewardCard('Descuento \$50', 500),
                       _buildRewardCard('Envío Gratis', 1000),
@@ -124,18 +130,23 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.all(AppDimensions.paddingM),
-                  child: Text('Historial de Puntos', style: AppTypography.titleLarge.copyWith(fontWeight: FontWeight.bold)),
+                  child: Text('Historial de Puntos',
+                      style: AppTypography.titleLarge
+                          .copyWith(fontWeight: FontWeight.bold)),
                 ),
               ),
-              
-              if (loyaltyProvider.isLoading && loyaltyProvider.transactions.isEmpty)
-                const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()))
+
+              if (loyaltyProvider.isLoading &&
+                  loyaltyProvider.transactions.isEmpty)
+                const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()))
               else if (loyaltyProvider.transactions.isEmpty)
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(AppDimensions.paddingL),
                     child: Center(
-                      child: Text('Aún no tienes movimientos', style: AppTypography.bodyMedium),
+                      child: Text('Aún no tienes movimientos',
+                          style: AppTypography.bodyMedium),
                     ),
                   ),
                 )
@@ -147,17 +158,22 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
                       final isEarned = tx.type == 'earned';
                       return ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: isEarned ? AppColors.success.withOpacity(0.1) : AppColors.error.withOpacity(0.1),
+                          backgroundColor: isEarned
+                              ? AppColors.success.withValues(alpha: 0.1)
+                              : AppColors.error.withValues(alpha: 0.1),
                           child: Icon(
                             isEarned ? Icons.add : Icons.remove,
-                            color: isEarned ? AppColors.success : AppColors.error,
+                            color:
+                                isEarned ? AppColors.success : AppColors.error,
                           ),
                         ),
-                        title: Text(tx.description, style: AppTypography.bodyMedium),
+                        title: Text(tx.description,
+                            style: AppTypography.bodyMedium),
                         trailing: Text(
                           '${isEarned ? '+' : '-'}${tx.points}',
                           style: AppTypography.titleMedium.copyWith(
-                            color: isEarned ? AppColors.success : AppColors.error,
+                            color:
+                                isEarned ? AppColors.success : AppColors.error,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -190,13 +206,15 @@ class _LoyaltyScreenState extends State<LoyaltyScreen> {
           const SizedBox(height: 8),
           Text(
             title,
-            style: AppTypography.labelLarge.copyWith(fontWeight: FontWeight.bold),
+            style:
+                AppTypography.labelLarge.copyWith(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
             '$pointsCost pts',
-            style: AppTypography.bodyMedium.copyWith(color: AppColors.textSecondary),
+            style: AppTypography.bodyMedium
+                .copyWith(color: AppColors.textSecondary),
           ),
           const SizedBox(height: 8),
           SizedBox(

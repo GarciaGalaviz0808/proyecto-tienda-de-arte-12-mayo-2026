@@ -26,7 +26,8 @@ class CartScreen extends StatelessWidget {
       body: Consumer<CartProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading && provider.cart == null) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return const Center(
+                child: CircularProgressIndicator(color: AppColors.primary));
           }
 
           if (provider.cart == null || provider.cart!.items.isEmpty) {
@@ -34,9 +35,11 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.shopping_cart_outlined, size: 64, color: AppColors.borderSubtle),
+                  const Icon(Icons.shopping_cart_outlined,
+                      size: 64, color: AppColors.borderSubtle),
                   const SizedBox(height: 16),
-                  Text('Tu carrito está vacío', style: AppTypography.titleMedium),
+                  Text('Tu carrito está vacío',
+                      style: AppTypography.titleMedium),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
@@ -55,13 +58,15 @@ class CartScreen extends StatelessWidget {
                 child: ListView.separated(
                   padding: const EdgeInsets.all(AppDimensions.paddingM),
                   itemCount: cart.items.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: AppDimensions.paddingM),
+                  separatorBuilder: (_, __) =>
+                      const SizedBox(height: AppDimensions.paddingM),
                   itemBuilder: (context, index) {
                     final item = cart.items[index];
                     return Container(
                       decoration: BoxDecoration(
                         color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+                        borderRadius:
+                            BorderRadius.circular(AppDimensions.radiusCard),
                         boxShadow: AppDimensions.shadowStandard,
                       ),
                       padding: const EdgeInsets.all(AppDimensions.paddingS),
@@ -72,9 +77,12 @@ class CartScreen extends StatelessWidget {
                             height: 80,
                             decoration: BoxDecoration(
                               color: AppColors.backgroundSecondary,
-                              borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                              borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusButton),
                             ),
-                            child: const Center(child: Icon(Icons.image, color: AppColors.borderSubtle)),
+                            child: const Center(
+                                child: Icon(Icons.image,
+                                    color: AppColors.borderSubtle)),
                           ),
                           const SizedBox(width: AppDimensions.paddingM),
                           Expanded(
@@ -83,7 +91,8 @@ class CartScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   item.brandSnapshot,
-                                  style: AppTypography.labelSmall.copyWith(color: AppColors.textSecondary),
+                                  style: AppTypography.labelSmall
+                                      .copyWith(color: AppColors.textSecondary),
                                 ),
                                 Text(
                                   item.nameSnapshot,
@@ -92,37 +101,48 @@ class CartScreen extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 8),
-                                PriceTag(price: item.priceSnapshot, discountPrice: null, compact: true),
+                                PriceTag(
+                                    price: item.priceSnapshot,
+                                    discountPrice: null,
+                                    compact: true),
                               ],
                             ),
                           ),
                           Column(
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.delete_outline, color: AppColors.error),
+                                icon: const Icon(Icons.delete_outline,
+                                    color: AppColors.error),
                                 onPressed: () {
                                   provider.removeItem(item.prodId);
                                 },
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.borderSubtle),
-                                  borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                                  border:
+                                      Border.all(color: AppColors.borderSubtle),
+                                  borderRadius: BorderRadius.circular(
+                                      AppDimensions.radiusButton),
                                 ),
                                 child: Row(
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.remove, size: 16),
                                       onPressed: item.quantity > 1
-                                          ? () => provider.updateQuantity(item.prodId, item.quantity - 1, 999)
+                                          ? () => provider.updateQuantity(
+                                              item.prodId,
+                                              item.quantity - 1,
+                                              999)
                                           : null,
                                       constraints: const BoxConstraints(),
                                       padding: const EdgeInsets.all(4),
                                     ),
-                                    Text('${item.quantity}', style: AppTypography.bodyMedium),
+                                    Text('${item.quantity}',
+                                        style: AppTypography.bodyMedium),
                                     IconButton(
                                       icon: const Icon(Icons.add, size: 16),
-                                      onPressed: () => provider.updateQuantity(item.prodId, item.quantity + 1, 999),
+                                      onPressed: () => provider.updateQuantity(
+                                          item.prodId, item.quantity + 1, 999),
                                       constraints: const BoxConstraints(),
                                       padding: const EdgeInsets.all(4),
                                     ),
@@ -144,7 +164,7 @@ class CartScreen extends StatelessWidget {
                   color: AppColors.surface,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, -5),
                     ),
@@ -160,7 +180,8 @@ class CartScreen extends StatelessWidget {
                           Text('Subtotal:', style: AppTypography.bodyLarge),
                           Text(
                             '\$${cart.total.toStringAsFixed(2)}',
-                            style: AppTypography.titleLarge.copyWith(fontWeight: FontWeight.bold),
+                            style: AppTypography.titleLarge
+                                .copyWith(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -172,17 +193,21 @@ class CartScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+                              MaterialPageRoute(
+                                  builder: (context) => const CheckoutScreen()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             foregroundColor: AppColors.surface,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppDimensions.radiusButton),
+                              borderRadius: BorderRadius.circular(
+                                  AppDimensions.radiusButton),
                             ),
                           ),
-                          child: const Text('Proceder al Pago', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          child: const Text('Proceder al Pago',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ],
