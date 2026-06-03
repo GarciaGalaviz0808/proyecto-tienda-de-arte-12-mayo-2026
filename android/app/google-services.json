@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "394630544536",
+    "project_id": "eli-s-art",
+    "storage_bucket": "eli-s-art.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394630544536:android:c8f63daf9777ba3440e4ed",
+        "android_client_info": {
+          "package_name": "com.elisartsupplies.elis_art_supplies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcoWQzMWzGggkem5x5ViGTx1WnY1vJQpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
