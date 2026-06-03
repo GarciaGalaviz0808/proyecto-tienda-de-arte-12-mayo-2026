@@ -1,4 +1,7 @@
-# elis_art_supplies
+# proyecto-tienda-de-arte-12-mayo-2026
+ArtStore
+
+## elis_art_supplies
 
 A new Flutter project.
 
